@@ -1,0 +1,41 @@
+=== HALIS BOT SETUP LOG ===  
+Timestamp: 2025-06-05 08:34:00  
+
+1. Installed Rasa and created the virtual environment.  
+2. Activated virtual environment in PowerShell using:  
+   .\venv\Scripts\Activate  
+3. Created initial bot project structure using:  
+   rasa init  
+4. Identified and fixed domain.yml YAML syntax error due to duplicate "intents".  
+5. Cleaned up missing utterances in domain.yml:  
+   - utter_iamabot  
+   - utter_cheer_up  
+   - utter_did_that_help  
+   - utter_happy  
+6. Validated and successfully trained the model.  
+7. Launched Halis for local interaction using:  
+   rasa shell  
+8. Started planning NLP enhancements (entities, slots, forms, etc.)
+
+---  
+**SESSION UPDATES (Since 2025-05-24):**  
+
+9. Added new intent: `ask_journal_prompt`  
+10. Created a custom action `action_journal_prompt` that returns a randomized reflective journal question.  
+11. Connected `ask_journal_prompt` to its custom action in `domain.yml` and `stories.yml`.  
+12. Added `nlu_fallback` and `utter_default` to handle misunderstood inputs.  
+13. Created structured `stories.yml` to include happy, sad, and support interaction paths.  
+14. Built and tested `nlu.yml` with new and refined example phrases for all intents.  
+15. Set up `actions.py` with logic to deliver custom journal prompts.  
+16. Created a batch file with a menu system to:  
+    - Activate environment  
+    - Train model  
+    - Run Rasa shell  
+    - View logs  
+17. Added activity logging that appends each command usage to `activity_log.txt`.  
+18. Began planning next features:  
+    - Capturing user journal responses  
+    - Adding forms and slots  
+    - Backing up project state  
+
+Everything remains functional. Batch system works. Current model handles basic greetings, mood tracking, and journaling reflection. Halis is ready for the next phase: **capturing user input and expanding mental health support tools**.

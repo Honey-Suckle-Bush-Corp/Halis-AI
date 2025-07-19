@@ -1,0 +1,52 @@
+version: "3.1"
+
+stories:
+
+- story: happy path
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: mood_great
+    - action: utter_happy
+
+- story: sad path 1
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: mood_unhappy
+    - action: utter_cheer_up
+    - action: utter_did_that_help
+    - intent: affirm
+    - action: utter_happy
+
+- story: sad path 2
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: mood_unhappy
+    - action: utter_cheer_up
+    - action: utter_did_that_help
+    - intent: deny
+    - action: utter_goodbye
+
+- story: support mood
+  steps:
+    - intent: mood_help
+    - action: utter_mood_help
+
+- story: ask for a journal prompt
+  steps:
+    - intent: ask_journal_prompt
+    - action: action_journal_prompt
+
+- story: user asks if you're a bot
+  steps:
+    - intent: iamabot
+    - action:
+
+- story: user gives journal response
+  steps:
+    - intent: ask_journal_prompt
+    - action: action_journal_prompt
+    - intent: journal_response
+    - action: action_store_journal

@@ -1,0 +1,46 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - mood_help
+  - iamabot
+  - ask_journal_prompt
+  - nlu_fallback
+
+responses:
+  utter_greet:
+    - text: "Hey! How are you?"
+
+  utter_goodbye:
+    - text: "Bye"
+
+  utter_mood_help:
+    - text: "I'm here with you. Let's take a deep breath and figure this out together. Want to tell me what's going on?"
+
+  utter_iamabot:
+    - text: "I am a bot, powered by Rasa."
+
+  utter_cheer_up:
+    - text: "Here’s something to cheer you up! Keep going, you're stronger than you think."
+
+  utter_did_that_help:
+    - text: "Did that help at all? It’s okay if it didn’t — we can try something else."
+
+  utter_happy:
+    - text: "That’s awesome to hear. I hope the good vibe keeps rolling."
+
+  utter_default:
+    - text: "I'm not sure I understood that. Can you say it a different way?"
+
+actions:
+  - action_journal_prompt
+  - action_store_journal
+slots:
+  journal_response:
+    type: text
+    influence_conversation: false

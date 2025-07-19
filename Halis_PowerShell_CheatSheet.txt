@@ -1,0 +1,22 @@
+=== HALIS POWERSHELL COMMAND CHEAT SHEET ===
+
+# Navigate to project directory
+cd C:\Users\Honey\OneDrive\Desktop\EventS\Halis\HalisBot
+
+# Activate the virtual environment
+.\venv\Scripts\Activate
+
+# Start Rasa shell (chat with bot)
+rasa shell
+
+# Train the bot (after making changes to domain, stories, etc.)
+rasa train
+
+# Run actions server (if using custom actions)
+rasa run actions
+
+# Visualize stories (optional)
+rasa visualize
+
+# Deactivate virtual environment
+deactivate
