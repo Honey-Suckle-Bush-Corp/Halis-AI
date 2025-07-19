@@ -1,17 +1,16 @@
-Perfect. Here's a solid starting README.md for your Halis project — tailored for a mental health resilience AI using Rasa:
+# Halis
 
-🧠 README.md — Halis: Mental Health Resilience Companion
-markdown
-Copy code
-# Halis 🤖🧘‍♀️
-
-**Halis** is an open-source conversational AI designed to support **mental health resilience**. Built using [Rasa](https://rasa.com/), Halis offers non-clinical companionship for individuals navigating challenging moments, providing encouragement, clarity, and a gentle reminder that they're not alone.
+<b> Halis </b> is an open-source conversational AI designed to support **mental health resilience**. Built using [Rasa](https://rasa.com/), Halis offers non-clinical companionship for individuals navigating challenging moments, providing encouragement, clarity, and a gentle reminder that they're not alone.
 
 ---
 
-## 🌟 Purpose
+## Vision
+Halis was created to reflect the belief that healing isn’t linear, and people need nonjudgmental tools that support emotional awareness — not just crisis intervention. Inspired by the best of AI and the warmth of human connection.
 
-Halis is **not a therapist** — it’s a steady digital companion that listens, reflects, and empowers users to better understand their emotions and stay grounded. It can:
+---
+
+## Purpose
+Halis is <b> not a therapist </b> — it’s a steady digital companion that listens, reflects, and empowers users to better understand their emotions and stay grounded. It can:
 
 - Offer daily emotional check-ins
 - Provide affirmations and grounding exercises
@@ -21,8 +20,7 @@ Halis is **not a therapist** — it’s a steady digital companion that listens,
 
 ---
 
-## 🏗️ Project Structure
-
+## Project Structure
 Halis/
 ├── data/ # NLU training data
 ├── domain.yml # Bot personality and actions
@@ -34,36 +32,43 @@ Halis/
 ├── .gitignore # Ignore unnecessary files
 └── README.md # This file
 
-yaml
-Copy code
-
 ---
 
-## 🚀 Getting Started
-
+## Getting Started
 ### Prerequisites
-
 - Python 3.10+
 - Rasa Open Source (`pip install rasa`)
 - Optional: [Poetry](https://python-poetry.org/) or `venv` for environment management
 
 ### Quick Start
+#### Navigate to the project root
+<i> cd Halis </i>
 
-```
+#### Create a virtual environment (optional but recommended)
+<i>python -m venv venv '.\venv\Scripts\activate' # Windows</i>
 
-Navigate to the project root
-cd Halis
+<i>source venv/bin/activate # Mac/Linux</i>
 
-Create a virtual environment (optional but recommended)
-python -m venv venv
-.\venv\Scripts\activate  # Windows
-source venv/bin/activate # Mac/Linux
+#### Install dependencies
+<i>pip install rasa</i>
 
-Install dependencies
-pip install rasa
+#### Train the model
+<i>rasa train</i>
 
-Train the model
-rasa train
+#### Run the bot (in terminal)
+<i>rasa shell</i>
 
-Run the bot (in terminal)
-rasa shell
+---
+
+## Disclaimer
+Halis is not a substitute for professional therapy or medical care. If you or someone you know is in crisis, please seek immediate help through a licensed professional or hotline.
+
+---
+
+## Contributing
+Pull requests, ideas, and feedback are welcome! If you’d like to collaborate, start a conversation or open an issue.
+
+---
+
+## Created with love by Honey Suckle Bush
+In memory of Dawn, whose compassion continues to guide this mission.
