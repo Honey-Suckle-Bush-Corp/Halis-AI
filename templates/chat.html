@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Halis Chat</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Halis AI Chat</h1>
+        <div class="chat-box">
+            {% if user_message %}
+                <p><strong>You:</strong> {{ user_message }}</p>
+            {% endif %}
+            {% if bot_message %}
+                <p><strong>Halis:</strong> {{ bot_message }}</p>
+            {% endif %}
+        </div>
+        <form method="POST">
+            <input type="text" name="message" placeholder="Type your message..." required>
+            <button type="submit">Send</button>
+        </form>
+        <a href="/logout">Logout</a>
+    </div>
+</body>
+</html>
