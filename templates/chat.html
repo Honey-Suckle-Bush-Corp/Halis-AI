@@ -1,125 +1,126 @@
-<!DOCTYPE html>
+<!-- templates/chat.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Halis Chat - Beta</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Halis AI Chat (Beta Test)</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background-color: #f6f6f6;
             margin: 0;
+            padding: 0;
         }
-        .chat-container {
-            background: #fff;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
-            width: 400px;
-            max-width: 90%;
-            position: relative;
-        }
-        .chat-header {
+
+        header {
+            background-color: #4a90e2;
+            color: white;
             text-align: center;
-            margin-bottom: 1rem;
-            font-weight: bold;
-            color: #FF5733;
+            padding: 20px 0;
         }
-        .top-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1rem;
+
+        .container {
+            max-width: 700px;
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
-        .top-buttons button {
-            padding: 0.4rem 0.8rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            color: #fff;
-        }
-        .donate-button {
-            background: #28A745;
-        }
-        .donate-button:hover {
-            background: #1e7e34;
-        }
-        .home-button {
-            background: #007BFF;
-        }
-        .home-button:hover {
-            background: #0056b3;
-        }
+
         .chat-box {
-            height: 300px;
-            overflow-y: auto;
             border: 1px solid #ddd;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border-radius: 5px;
-            background: #fafafa;
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
         }
-        .chat-message {
-            margin-bottom: 0.5rem;
+
+        .message {
+            margin: 10px 0;
         }
+
         .user {
-            font-weight: bold;
-            color: #007BFF;
+            text-align: right;
+            color: #333;
         }
+
         .bot {
-            font-weight: bold;
-            color: #28A745;
+            text-align: left;
+            color: #4a90e2;
         }
+
+        form {
+            display: flex;
+            gap: 10px;
+        }
+
         input[type="text"] {
-            width: calc(100% - 90px);
-            padding: 0.5rem;
-            border: 1px solid #ccc;
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
             border-radius: 5px;
+            border: 1px solid #ccc;
         }
-        button.send {
-            padding: 0.55rem 1rem;
+
+        button {
+            padding: 10px 20px;
+            background-color: #4a90e2;
+            color: white;
             border: none;
-            background: #007BFF;
-            color: #fff;
             border-radius: 5px;
             cursor: pointer;
         }
-        button.send:hover {
-            background: #0056b3;
+
+        button:hover {
+            background-color: #357ABD;
+        }
+
+        .links {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .links a {
+            color: #4a90e2;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="chat-container">
-        <div class="chat-header">⚠️ BETA TEST — Halis Chat</div>
+    <header>
+        <h1>Halis AI Chat (Beta Test)</h1>
+        <p>Experience guided journaling and emotional support</p>
+    </header>
 
-        <div class="top-buttons">
-            <button class="donate-button" onclick="window.location.href='https://givebutter.com/Halis'">
-                Donate
-            </button>
-            <button class="home-button" onclick="window.location.href='https://www.honeysucklebush.com'">
-                Home
-            </button>
-        </div>
-
+    <div class="container">
         <div class="chat-box">
             {% if user_message %}
-            <div class="chat-message user">You: {{ user_message }}</div>
+                <div class="message user"><strong>You:</strong> {{ user_message }}</div>
             {% endif %}
             {% if bot_message %}
-            <div class="chat-message bot">Halis: {{ bot_message }}</div>
+                <div class="message bot"><strong>Halis:</strong> {{ bot_message }}</div>
             {% endif %}
         </div>
 
-        <form method="POST" action="{{ url_for('chat') }}">
-            <input type="text" name="message" placeholder="Type your message..." required>
-            <button type="submit" class="send">Send</button>
+        <form action="/chat" method="post">
+            <input type="text" name="message" placeholder="Type your message here..." required>
+            <button type="submit">Send</button>
         </form>
+
+        <div class="links">
+            <a href="https://givebutter.com/Halis" target="_blank">Donate to Halis</a>
+            <a href="https://www.honeysucklebush.com" target="_blank">Back to Honeysuckle Bush</a>
+        </div>
     </div>
 </body>
 </html>
+
