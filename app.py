@@ -73,6 +73,15 @@ def chat():
         bot_reply = 'This is a placeholder response from Halis.'
     return render_template('chat.html', bot_message=bot_reply, user_message=user_message)
 
+# Temporary route to initialize database tables
+@app.route('/init-db')
+def init_db():
+    try:
+        db.create_all()
+        return "Database tables created successfully!"
+    except Exception as e:
+        return f"Error creating tables: {e}"
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
