@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Halis Chat</title>
+    <title>Halis Chat - Beta</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
         body {
@@ -21,6 +22,38 @@
             box-shadow: 0 0 10px rgba(0,0,0,0.2);
             width: 400px;
             max-width: 90%;
+            position: relative;
+        }
+        .chat-header {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            color: #FF5733;
+        }
+        .top-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        .top-buttons button {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #fff;
+        }
+        .donate-button {
+            background: #28A745;
+        }
+        .donate-button:hover {
+            background: #1e7e34;
+        }
+        .home-button {
+            background: #007BFF;
+        }
+        .home-button:hover {
+            background: #0056b3;
         }
         .chat-box {
             height: 300px;
@@ -48,7 +81,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
-        button {
+        button.send {
             padding: 0.55rem 1rem;
             border: none;
             background: #007BFF;
@@ -56,14 +89,24 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        button:hover {
+        button.send:hover {
             background: #0056b3;
         }
     </style>
 </head>
 <body>
     <div class="chat-container">
-        <h2>Halis Chat</h2>
+        <div class="chat-header">⚠️ BETA TEST — Halis Chat</div>
+
+        <div class="top-buttons">
+            <button class="donate-button" onclick="window.location.href='https://givebutter.com/Halis'">
+                Donate
+            </button>
+            <button class="home-button" onclick="window.location.href='https://www.honeysucklebush.com'">
+                Home
+            </button>
+        </div>
+
         <div class="chat-box">
             {% if user_message %}
             <div class="chat-message user">You: {{ user_message }}</div>
@@ -72,9 +115,10 @@
             <div class="chat-message bot">Halis: {{ bot_message }}</div>
             {% endif %}
         </div>
+
         <form method="POST" action="{{ url_for('chat') }}">
             <input type="text" name="message" placeholder="Type your message..." required>
-            <button type="submit">Send</button>
+            <button type="submit" class="send">Send</button>
         </form>
     </div>
 </body>
