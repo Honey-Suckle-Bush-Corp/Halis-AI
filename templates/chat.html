@@ -3,24 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <title>Halis Chat</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .chat-container {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            width: 400px;
+            max-width: 90%;
+        }
+        .chat-box {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            background: #fafafa;
+        }
+        .chat-message {
+            margin-bottom: 0.5rem;
+        }
+        .user {
+            font-weight: bold;
+            color: #007BFF;
+        }
+        .bot {
+            font-weight: bold;
+            color: #28A745;
+        }
+        input[type="text"] {
+            width: calc(100% - 90px);
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 0.55rem 1rem;
+            border: none;
+            background: #007BFF;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Halis AI Chat</h1>
+    <div class="chat-container">
+        <h2>Halis Chat</h2>
         <div class="chat-box">
             {% if user_message %}
-                <p><strong>You:</strong> {{ user_message }}</p>
+            <div class="chat-message user">You: {{ user_message }}</div>
             {% endif %}
             {% if bot_message %}
-                <p><strong>Halis:</strong> {{ bot_message }}</p>
+            <div class="chat-message bot">Halis: {{ bot_message }}</div>
             {% endif %}
         </div>
-        <form method="POST">
+        <form method="POST" action="{{ url_for('chat') }}">
             <input type="text" name="message" placeholder="Type your message..." required>
             <button type="submit">Send</button>
         </form>
-        <a href="/logout">Logout</a>
     </div>
 </body>
 </html>
