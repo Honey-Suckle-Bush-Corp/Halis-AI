@@ -1,4 +1,9 @@
 # app.py
+import nltk
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt')
 from flask import Flask, request, render_template
 from halis_logic import generate_response
 
