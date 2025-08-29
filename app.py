@@ -1,43 +1,36 @@
 # app.py
-import nltk
-try:
-    nltk.data.find('tokenizers/punkt')
-except LookupError:
-    nltk.download('punkt')
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, session
 from halis_logic import generate_response
 
 app = Flask(__name__)
+app.secret_key = 'your-secret-key'  # Needed for session storage
 
 @app.route('/')
 def home():
-    return render_template('chat.html', bot_message='', user_message='')
+    if 'history' not in session:
+        session['history'] = []
+    return render_template('chat.html')
 
-@app.route('/chat', methods=['GET','POST'])
+@app.route('/chat', methods=['GET', 'POST'])
 def chat():
     """
-    Main chat route:
-    - Receives user messages
-    - Generates Halis response using halis_logic.py
-    - Returns updated chat page
+    Handles chat interactions:
+    - Stores session-limited conversation history
+    - Uses Halis AI to respond
     """
-    bot_reply = ''
-    user_message = ''
-    
+    if 'history' not in session:
+        session['history'] = []
+
     if request.method == 'POST':
-        # Get user input from form
         user_message = request.form['message']
-        
-        # Generate Halis response
-        bot_reply = generate_response(user_message)
+        session['history'].append({'role': 'user', 'message': user_message})
+
+        # Generate Halis response with session context
+        bot_reply = generate_response(user_message, context=session['history'])
+        session['history'].append({'role': 'bot', 'message': bot_reply})
+
+    return render_template('chat.html', history=session['history'])
     
-    # Render chat page with both user message and bot reply
-    return render_template(
-        'chat.html',
-        bot_message=bot_reply,
-        user_message=user_message
-    )
 
 if __name__ == '__main__':
-    # Run app locally for testing
     app.run(debug=True)

@@ -2,7 +2,7 @@
 import random
 from textblob import TextBlob
 
-# --- Static Knowledge Base (Curated from mental health resources) ---
+# --- Static Knowledge Base ---
 knowledge_base = {
     "grounding": [
         "5-4-3-2-1 grounding technique: Name 5 things you can see, 4 you can touch, 3 you can hear, 2 you can smell, 1 you can taste.",
@@ -24,10 +24,7 @@ knowledge_base = {
     ]
 }
 
-# --- Session-Limited Context (anonymous, in RAM only) ---
-session_context = {}
-
-# --- Emotion Keywords (expanded, nuanced) ---
+# --- Emotion Keywords ---
 emotion_keywords = {
     "happy": ["happy", "joy", "excited", "content", "pleased", "grateful", "cheerful"],
     "sad": ["sad", "down", "upset", "unhappy", "depressed", "mournful", "melancholy"],
@@ -41,21 +38,19 @@ emotion_keywords = {
     "guilty": ["guilty", "regretful", "ashamed", "remorseful"]
 }
 
-# --- Global Phrase Bank for Dynamic Growth ---
+# --- Global Phrase Bank ---
 global_phrase_bank = {
     "encouragement": set(knowledge_base["encouragement"]),
     "reflection": set(knowledge_base["reflection"])
 }
 
 # --- Helper Functions ---
-
 def detect_emotion(message):
-    """Detect emotion from keywords first, then fallback to sentiment analysis."""
+    """Detect emotion from keywords first, fallback to sentiment analysis."""
     message_lower = message.lower()
     for emotion, keywords in emotion_keywords.items():
         if any(word in message_lower for word in keywords):
             return emotion
-    # Fallback to sentiment polarity
     polarity = TextBlob(message).sentiment.polarity
     if polarity > 0.3:
         return "happy"
@@ -67,54 +62,31 @@ def detect_emotion(message):
 def learn_new_phrases(message):
     """Dynamically add non-personal phrases to the global bank."""
     words = message.split()
-    # Simple rule: if a message contains positive keywords, add a new encouragement
     if any(word.lower() in emotion_keywords["happy"] for word in words):
         global_phrase_bank["encouragement"].add(message)
-    # If message contains reflective keywords, add to reflection
     if any(word.lower() in emotion_keywords["sad"] + emotion_keywords["anxious"] for word in words):
         global_phrase_bank["reflection"].add(message)
 
-def generate_response(message, user_id="default_user"):
+def generate_response(message, context=None):
     """
-    Generate Halis response:
-    - Detect nuanced emotion
-    - Use session-limited context
-    - Use grounding, encouragement, reflection techniques
-    - Dynamically grow language patterns safely
+    Generates a Halis response using session-limited context.
     """
-    # --- Detect emotion ---
-    emotion = detect_emotion(message)
-    
-    # --- Update session memory (RAM only, per session) ---
-    if user_id not in session_context:
-        session_context[user_id] = {"last_emotion": emotion, "last_messages": []}
-    session_context[user_id]["last_emotion"] = emotion
-    session_context[user_id]["last_messages"].append(message)
-    context = session_context[user_id]["last_messages"][-3:]  # last 3 messages for context
-    
-    # --- Learn new phrases (anonymous) ---
+    last_emotion = detect_emotion(message)
     learn_new_phrases(message)
-    
-    # --- Generate response ---
+
     response_options = []
-    
-    # Respond to detected emotion
-    if emotion in ["sad", "anxious", "angry", "lonely", "fearful", "guilty"]:
+
+    if last_emotion in ["sad", "anxious", "angry", "lonely", "fearful", "guilty"]:
         response_options.append(random.choice(knowledge_base["grounding"]))
-        # Add reflection or encouragement from global phrase bank
         if random.random() < 0.5:
             response_options.append(random.choice(list(global_phrase_bank["reflection"])))
-    elif emotion in ["happy", "hopeful", "calm"]:
-        response_options.append(random.choice(list(global_phrase_bank["encouragement"])))
     else:
-        # Neutral or confused
-        response_options.append(random.choice(list(global_phrase_bank["reflection"])))
-    
-    # Occasionally add extra encouragement
+        response_options.append(random.choice(list(global_phrase_bank["encouragement"])))
+
     if random.random() < 0.3:
         response_options.append(random.choice(list(global_phrase_bank["encouragement"])))
-    
-    # Combine options into final response
+
     final_response = " ".join(response_options)
     return final_response
+
 

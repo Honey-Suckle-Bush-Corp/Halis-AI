@@ -36,20 +36,30 @@
             max-height: 400px;
             overflow-y: auto;
             margin-bottom: 20px;
+            background: #fafafa;
         }
 
         .message {
             margin: 10px 0;
+            padding: 8px 12px;
+            border-radius: 8px;
+            display: inline-block;
+            max-width: 80%;
         }
 
         .user {
+            background-color: #e0e0e0;
             text-align: right;
-            color: #333;
+            float: right;
+            clear: both;
         }
 
         .bot {
+            background-color: #4a90e2;
+            color: white;
             text-align: left;
-            color: #4a90e2;
+            float: left;
+            clear: both;
         }
 
         form {
@@ -93,6 +103,15 @@
         .links a:hover {
             text-decoration: underline;
         }
+
+        /* Ensure chat scrolls to the bottom */
+        .chat-box::-webkit-scrollbar {
+            width: 8px;
+        }
+        .chat-box::-webkit-scrollbar-thumb {
+            background-color: #ccc;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -102,12 +121,15 @@
     </header>
 
     <div class="container">
-        <div class="chat-box">
-            {% if user_message %}
-                <div class="message user"><strong>You:</strong> {{ user_message }}</div>
-            {% endif %}
-            {% if bot_message %}
-                <div class="message bot"><strong>Halis:</strong> {{ bot_message }}</div>
+        <div class="chat-box" id="chat-box">
+            {% if history %}
+                {% for msg in history %}
+                    <div class="message {{ msg.role }}">
+                        <strong>{{ msg.role.title() }}:</strong> {{ msg.message }}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p style="color:#999;">Start your conversation with Halis below...</p>
             {% endif %}
         </div>
 
@@ -121,6 +143,11 @@
             <a href="https://www.honeysucklebush.com" target="_blank">Back to Honeysuckle Bush</a>
         </div>
     </div>
+
+    <script>
+        // Scroll to the bottom of chat box automatically
+        var chatBox = document.getElementById('chat-box');
+        chatBox.scrollTop = chatBox.scrollHeight;
+    </script>
 </body>
 </html>
-
